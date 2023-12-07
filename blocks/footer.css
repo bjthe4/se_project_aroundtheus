@@ -1,7 +1,5 @@
 footer {
   font-family: "Inter", Arial, Helvetica, sans-serif;
-  padding: 35px 0 60px;
-  flex-shrink: 0;
 }
 
 .footer__copyright {
@@ -10,16 +8,14 @@ footer {
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
+  padding: 67px 0 60px;
 }
 
 @media screen and (max-width: 636px) {
-  .footer {
-    padding: 30px 0 36px;
-  }
-
   .footer__copyright {
     font-size: 14px;
     line-height: 17px;
-    margin-left: 19px;
+    padding: 48px 0 36px 19px;
+    margin: 0;
   }
 }
