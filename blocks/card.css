@@ -31,7 +31,7 @@
 }
 
 .card__like-button:hover {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .card__title {
@@ -42,9 +42,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  margin: 0;
-}
-
-.card__name {
   margin: 0;
 }
