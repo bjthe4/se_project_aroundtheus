@@ -12,6 +12,10 @@
   justify-content: center;*/
 }
 
+.modal_opened {
+  display: flex;
+}
+
 .modal__container {
   padding: 34px 36px 36px 36px;
   background-color: #fff;
