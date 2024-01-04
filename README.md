@@ -8,11 +8,28 @@
   
 **Intro**
   
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
+This is the Fourth Project of the Software engineering Program at Tripleten. Shows advanced feautres using HTML, CSS,  Grid, and javascript. 
+
+## Project Feautures
+
+   - Semantic HTML5
+   - Flexbox
+   - Positioning
+   - Flat BEM file structure
+   - A custom form
+   - CSS Puesodo elements
+   - Figma
+   - Javascript
+
   
 **Figma**  
   
-* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
+* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
+
+# Project link
+
+ https://bjthe4.github.io/se_project_aroundtheus/
+
   
 **Images**  
   
