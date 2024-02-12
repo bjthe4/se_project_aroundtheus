@@ -20,7 +20,6 @@
   background: transparent url(../images/edit-button-4.svg) center no-repeat;
   height: 24px;
   width: 24px;
-  grid-area: button;
   margin-left: auto;
   cursor: pointer;
   flex-shrink: 0;
