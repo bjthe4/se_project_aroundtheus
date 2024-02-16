@@ -44,9 +44,10 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-title-description"
 );
+const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addModalButton = document.querySelector("#profile-add-button");
 const addModalCloseButton = modalAddPopup.querySelector("#add-close-modal");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
+const cardsAddForm = document.querySelector("#modal__form-add");
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -67,7 +68,6 @@ function previewPicture({ name, link }) {
 
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
-  // access the card title and image and store them in variables
   cardElement.querySelector(".card__title").textContent = cardData.name;
   const imageEl = cardElement.querySelector(".card__image");
   imageEl.style.backgroundImage = `url(${cardData.link})`;
@@ -78,6 +78,13 @@ function getCardElement(cardData) {
       link: cardData.link,
       name: cardData.name,
     });
+  });
+
+  const deleteButton = cardElement.querySelector(".card__trash-button");
+  console.log(deleteButton);
+  deleteButton.addEventListener("click", function () {
+    console.log(123);
+    cardElement.remove();
   });
   //set the image alt text to the name field of the object
   //set the card title to the name field of the object, too
@@ -112,6 +119,18 @@ profileEditButton.addEventListener("click", () =>
 addModalButton.addEventListener("click", () =>
   toggleModalWindow(profiladdModal)
 );
+
+cardsAddForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = e.target.title.value;
+  const link = e.target.link.value;
+  rendercard({
+    name,
+    link,
+  });
+  rendercard(cardElement, cardListEl);
+  closePopup(modalAddPopup);
+});
 
 profileCloseModal.addEventListener("click", () => closePopup(profileEditModal));
 

@@ -79,7 +79,7 @@
             id="add-close-modal"
           ></button>
           <h3 class="modal__heading">New place</h3>
-          <form class="modal__form">
+          <form class="modal__form" id="modal__form-add">
             <input
               type="text"
               class="modal__input modal__input_type_title"
@@ -114,11 +114,7 @@
     <template id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />
-        <button
-          type="button"
-          class="card__trash-button"
-          id="Js-trash-button"
-        ></button>
+        <button type="button" class="card__trash-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button type="button" class="card__like-button"></button>
