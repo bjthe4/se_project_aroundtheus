@@ -34,8 +34,8 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const modelPreviewImageElement = document.querySelector(
   ".modal__preview-image"
 );
-const trashCardsButton = document.querySelector("card__trash-button");
-const trashCardCloseButton = document.querySelector("Js-trash-button");
+const modalPreviewImageCaption = document.querySelector("#preview-caption");
+
 const profiladdModal = document.querySelector("#profile-add-modal");
 const profileCloseModal = modaleditPopup.querySelector("#profile-close-modal");
 const profileTitle = document.querySelector(".profile__title");
@@ -63,6 +63,7 @@ function toggleModalWindow(modal) {
 
 function previewPicture({ name, link }) {
   previewModal.classList.add("modal_opened");
+
   // cards.classList.toggle("modal_opened");
 }
 
@@ -70,7 +71,7 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector(".card__title").textContent = cardData.name;
   const imageEl = cardElement.querySelector(".card__image");
-  imageEl.style.backgroundImage = `url(${cardData.link})`;
+  imageEl.src = cardData.link;
 
   imageEl.addEventListener("click", function () {
     modelPreviewImageElement.src = cardData.link;
@@ -86,10 +87,14 @@ function getCardElement(cardData) {
     console.log(123);
     cardElement.remove();
   });
-  //set the image alt text to the name field of the object
-  //set the card title to the name field of the object, too
+  const cardLikeBtn = cardElement.querySelector(".card__like-button");
+  cardLikeBtn.addEventListener("click", () => {
+    const cardLikeBtnActive = cardElement.querySelector(
+      "#card__like-button_active"
+    );
+    cardLikeBtn.classList.toggle("card__like-button_active");
+  });
 
-  //return the ready HTML element with the filled-in data
   return cardElement;
 }
 
@@ -122,13 +127,10 @@ addModalButton.addEventListener("click", () =>
 
 cardsAddForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const name = e.target.title.value;
-  const link = e.target.link.value;
-  rendercard({
-    name,
-    link,
-  });
-  rendercard(cardElement, cardListEl);
+  const name = cardsAddForm.querySelector("#profile-title-input").value;
+  const link = cardsAddForm.querySelector("#profile-title-description").value;
+  const newCard = getCardElement({ name, link });
+  rendercard(newCard, cardListEl);
   closePopup(modalAddPopup);
 });
 
