@@ -38,6 +38,7 @@
   width: auto;
   height: auto;
   display: flex;
+  flex-direction: column;
 }
 
 .modal__preview-image {

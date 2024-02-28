@@ -61,7 +61,7 @@ function toggleModalWindow(modal) {
   modal.classList.toggle("modal_opened");
 }
 
-function previewPicture({ name, link }) {
+function previewPicture() {
   previewModal.classList.add("modal_opened");
 
   // cards.classList.toggle("modal_opened");
@@ -75,10 +75,8 @@ function getCardElement(cardData) {
 
   imageEl.addEventListener("click", function () {
     modelPreviewImageElement.src = cardData.link;
-    previewPicture({
-      link: cardData.link,
-      name: cardData.name,
-    });
+    previewPicture();
+    modalPreviewImageCaption.textContent = cardData.name;
   });
 
   const deleteButton = cardElement.querySelector(".card__trash-button");
@@ -112,7 +110,7 @@ function handleEditProfileSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+  closePopup(profileEditModal);
 }
 
 /* event listeners */
