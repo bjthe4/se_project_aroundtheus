@@ -92,7 +92,6 @@
 .modal__button {
   background: #000;
   color: white;
-  min-width: 358px;
   height: 50px;
   margin-top: 48px;
   border: none;
@@ -142,7 +141,6 @@
   }
 
   .modal__button {
-    min-width: 238px;
     height: 46px;
     padding: 14px 100px 14px 100px;
     margin-top: 45px;

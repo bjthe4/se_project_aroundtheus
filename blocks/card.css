@@ -12,6 +12,7 @@
   min-height: 282px;
   object-fit: cover;
   flex: 0 0 282px;
+  cursor: pointer;
 }
 
 .card__description {
