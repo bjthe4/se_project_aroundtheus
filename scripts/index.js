@@ -57,9 +57,9 @@ const previewCloseModal = modalePreviewPopup.querySelector(
 );
 /* functions */
 
-function toggleModalWindow(modal) {
-  modal.classList.toggle("modal_opened");
-}
+// function toggleModalWindow(modal) {
+//   modal.classList.toggle("modal_opened");
+// }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -71,7 +71,7 @@ function closeModal() {
 
 function previewPicture() {
   // previewModal.classList.add("modal_opened");
-  toggleModalWindow(previewModal);
+  openModal(previewModal);
   // cards.classList.toggle("modal_opened");
 }
 
