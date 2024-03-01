@@ -76,8 +76,6 @@ function previewPicture() {
 }
 
 function getCardElement(cardData) {
-  console.log(12312321131231231);
-  console.log(cardData);
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector(".card__title").textContent = cardData.name;
 
@@ -114,12 +112,6 @@ function renderCard(cardData, container) {
 }
 
 /* event handelers */
-function handleEditProfileFormFill(e) {
-  e.preventDefault();
-  profileTitle.value = profileTitleInput.textContent;
-  profileDescription.value = profileDescriptionInput.textContent;
-  closeModal(profileEditModal);
-}
 
 function handleEditProfileSubmit(e) {
   e.preventDefault();
@@ -129,8 +121,11 @@ function handleEditProfileSubmit(e) {
 }
 
 /* event listeners */
+
 profileEditButton.addEventListener("click", () => {
   // as a step 1 you need to fill the profile modal with data FIRST!
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
   openModal(profileEditModal);
 });
 
