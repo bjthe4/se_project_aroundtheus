@@ -53,19 +53,34 @@
           <form class="modal__form">
             <input
               type="text"
-              class="modal__input"
+              class="modal__input modal__input_type_error"
               name="title"
               id="profile-title-input"
               placeholder="Name"
+              minlength="2"
+              maxlength="40"
+              required
             />
+            <span class="modal__error" id="profile-title-input-error"> </span>
             <input
               type="text"
               class="modal__input"
               name="description"
               id="profile-title-description"
               placeholder="Description"
+              minlength="2"
+              maxlength="200"
+              required
             />
-            <button type="submit" class="modal__button">Save</button>
+            <span class="modal__error" id="profile-title-description-error">
+            </span>
+            <button
+              type="submit"
+              class="modal__button modal__button_disabled"
+              disabled
+            >
+              Save
+            </button>
           </form>
         </div>
       </div>
@@ -87,6 +102,7 @@
               id="profile-title-input"
               placeholder="Title"
             />
+            <!-- <span ?? -->
             <input
               type="url"
               class="modal__input modal__input_type_link"
@@ -127,5 +143,6 @@
       </li>
     </template>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>

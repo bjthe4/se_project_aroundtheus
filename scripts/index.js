@@ -91,9 +91,9 @@ function getCardElement(cardData) {
   });
 
   const deleteButton = cardElement.querySelector(".card__trash-button");
-  console.log(deleteButton);
+  //console.log(deleteButton);
   deleteButton.addEventListener("click", function () {
-    console.log(123);
+    //console.log(123);
     cardElement.remove();
   });
   const cardLikeBtn = cardElement.querySelector(".card__like-button");
