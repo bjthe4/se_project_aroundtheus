@@ -76,6 +76,9 @@
   margin: 0;
 }
 
+#profile-description-title-error {
+  top: calc(100% + 5px);
+}
 @media screen and (min-width: 776px) {
   .profile__info {
     max-width: 490px;

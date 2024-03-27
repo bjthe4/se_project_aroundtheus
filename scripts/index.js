@@ -63,10 +63,19 @@ const previewCloseModal = modalePreviewPopup.querySelector(
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("click", (event) => {
+    if (Array.from(event.target.classList).includes("modal")) {
+      closeModal(modal);
+    }
+  });
+  document.addEventListener("keydown", escToCloseModal);
+  // toggleButton
 }
 
-function closeModal() {
-  document.querySelector(".modal_opened").classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", escToCloseModal);
+  // remov event listener for click on the overlay
 }
 
 function previewPicture() {
@@ -118,6 +127,14 @@ function handleEditProfileSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
   closeModal(profileEditModal);
+}
+
+function escToCloseModal(e) {
+  const key = e.code;
+  const openModal = document.querySelector(".modal_opened");
+  if (key === "Escape") {
+    closeModal(openModal);
+  }
 }
 
 /* event listeners */
