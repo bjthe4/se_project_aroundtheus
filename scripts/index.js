@@ -26,9 +26,9 @@ const initialCards = [
 ];
 /* elements */
 
-const modalAddPopup = document.querySelector(".js-add-popup");
-const modalEditPopup = document.querySelector(".js-edit-popup");
-const modalePreviewPopup = document.querySelector(".js-preview-popup");
+const modalAdd = document.querySelector(".js-add-modal");
+const modalEdit = document.querySelector(".js-edit-modal");
+const modalePreview = document.querySelector(".js-preview-modal");
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const modelPreviewImageElement = document.querySelector(
@@ -37,7 +37,7 @@ const modelPreviewImageElement = document.querySelector(
 const modalPreviewImageCaption = document.querySelector("#preview-caption");
 
 const profilAddModal = document.querySelector("#profile-add-modal");
-const profileCloseModal = modalEditPopup.querySelector("#profile-close-modal");
+const profileCloseModal = modalEdit.querySelector("#profile-close-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -46,36 +46,35 @@ const profileDescriptionInput = document.querySelector(
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addModalButton = document.querySelector("#profile-add-button");
-const addModalCloseButton = modalAddPopup.querySelector("#add-close-modal");
+const addModalCloseButton = modalAdd.querySelector("#add-close-modal");
 const cardsAddForm = document.querySelector("#modal__form-add");
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const previewModal = document.querySelector("#preview-modal");
-const previewCloseModal = modalePreviewPopup.querySelector(
-  "#preview-close-modal"
-);
+const previewCloseModal = modalePreview.querySelector("#preview-close-modal");
 /* functions */
 
 // function toggleModalWindow(modal) {
 //   modal.classList.toggle("modal_opened");
 // }
 
+function handleOverlayClick(event) {
+  if (Array.from(event.target.classList).includes("modal")) {
+    closeModal(event.target);
+  }
+}
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
-  modal.addEventListener("click", (event) => {
-    if (Array.from(event.target.classList).includes("modal")) {
-      closeModal(modal);
-    }
-  });
-  document.addEventListener("keydown", escToCloseModal);
-  // toggleButton
+  document.addEventListener("keydown", handleEscapeClose);
+  modal.addEventListener("click", handleOverlayClick);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", escToCloseModal);
-  // remov event listener for click on the overlay
+  document.removeEventListener("keydown", handleEscapeClose);
+  modal.removeEventListener("click", handleOverlayClick);
 }
 
 function previewPicture() {
@@ -107,9 +106,6 @@ function getCardElement(cardData) {
   });
   const cardLikeBtn = cardElement.querySelector(".card__like-button");
   cardLikeBtn.addEventListener("click", () => {
-    const cardLikeBtnActive = cardElement.querySelector(
-      "#card__like-button_active"
-    );
     cardLikeBtn.classList.toggle("card__like-button_active");
   });
 
@@ -129,10 +125,12 @@ function handleEditProfileSubmit(e) {
   closeModal(profileEditModal);
 }
 
-function escToCloseModal(e) {
+function handleEscapeClose(e) {
   const key = e.code;
-  const openModal = document.querySelector(".modal_opened");
+
   if (key === "Escape") {
+    const openModal = document.querySelector(".modal_opened");
+
     closeModal(openModal);
   }
 }
@@ -154,6 +152,7 @@ cardsAddForm.addEventListener("submit", (e) => {
   const link = cardsAddForm.querySelector("#profile-title-description").value;
   const newCard = getCardElement({ name, link });
   renderCard(newCard, cardListEl);
+  cardsAddForm.reset();
   closeModal(profilAddModal);
 });
 
