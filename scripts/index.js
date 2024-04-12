@@ -1,3 +1,6 @@
+import Card from "./card.js";
+import FormValidator from "./FormValidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +27,15 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg ",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#card-template");
+card.getView();
+
 /* elements */
 
 const modalAdd = document.querySelector(".js-add-modal");
@@ -83,13 +95,38 @@ function previewPicture() {
   // cards.classList.toggle("modal_opened");
 }
 
+/* Validation */
+
+const validationSettings = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const editFormElemenet = modalEdit.querySelector(".modal__form");
+const addFormElemenet = modalAdd.querySelector(".modal__form");
+
+const editFormValidator = new FormValidator(
+  validationSettings,
+  editFormElemenet
+);
+const addFormValidator = new FormValidator(validationSettings, addFormElemenet);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector(".card__title").textContent = cardData.name;
-
+  const cardLikeBtn = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__trash-button");
   const imageEl = cardElement.querySelector(".card__image");
+
   imageEl.alt = cardData.name;
   imageEl.src = cardData.link;
+
+  cardElement.querySelector(".card__title").textContent = cardData.name;
 
   imageEl.addEventListener("click", function () {
     modelPreviewImageElement.src = cardData.link;
@@ -98,16 +135,8 @@ function getCardElement(cardData) {
     previewPicture();
   });
 
-  const deleteButton = cardElement.querySelector(".card__trash-button");
-  //console.log(deleteButton);
-  deleteButton.addEventListener("click", function () {
-    //console.log(123);
-    cardElement.remove();
-  });
-  const cardLikeBtn = cardElement.querySelector(".card__like-button");
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__like-button_active");
-  });
+  cardLikeBtn.addEventListener("click", handleLikeIcon);
+  deleteButton.addEventListener("click", handleDeleteCard);
 
   return cardElement;
 }
@@ -117,6 +146,14 @@ function renderCard(cardData, container) {
 }
 
 /* event handelers */
+
+const handleLikeIcon = (evt) => {
+  evt.target.classList.toggle("card__like-button_active");
+};
+
+const handleDeleteCard = (evt) => {
+  evt.target.closest(".card").remove();
+};
 
 function handleEditProfileSubmit(e) {
   e.preventDefault();
