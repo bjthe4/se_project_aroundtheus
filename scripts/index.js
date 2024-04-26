@@ -33,8 +33,12 @@ const cardData = {
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
 
-const card = new Card(cardData, "#card-template");
+/*
+const card = new Card(cardData, "#card-template", (obj) => {
+  console.log(obj);
+});
 card.getView();
+*/
 
 /* elements */
 
@@ -117,7 +121,7 @@ const addFormValidator = new FormValidator(validationSettings, addFormElemenet);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-function getCardElement(cardData) {
+/*function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardLikeBtn = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__trash-button");
@@ -139,10 +143,16 @@ function getCardElement(cardData) {
   deleteButton.addEventListener("click", handleDeleteCard);
 
   return cardElement;
-}
+}*/
 
 function renderCard(cardData, container) {
-  container.prepend(cardData);
+  const card = new Card(cardData, "#card-template", (obj) => {
+    modelPreviewImageElement.src = obj.link;
+    modelPreviewImageElement.alt = obj.name;
+    modalPreviewImageCaption.textContent = obj.name;
+    previewPicture();
+  });
+  container.prepend(card.getView());
 }
 
 /* event handelers */
@@ -187,8 +197,8 @@ cardsAddForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = cardsAddForm.querySelector("#profile-title-input").value;
   const link = cardsAddForm.querySelector("#profile-title-description").value;
-  const newCard = getCardElement({ name, link });
-  renderCard(newCard, cardListEl);
+  /*const newCard = getCardElement({ name, link });*/
+  renderCard({ name, link }, cardListEl);
   cardsAddForm.reset();
   closeModal(profilAddModal);
 });
@@ -202,6 +212,12 @@ previewCloseModal.addEventListener("click", () => closeModal(previewModal));
 profileEditForm.addEventListener("submit", handleEditProfileSubmit);
 
 initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  renderCard(cardElement, cardListEl);
+  const card = new Card(cardData, "#card-template", (obj) => {
+    modelPreviewImageElement.src = obj.link;
+    modelPreviewImageElement.alt = obj.name;
+    modalPreviewImageCaption.textContent = obj.name;
+    previewPicture();
+  });
+  // const cardElement = getCardElement(cardData);
+  renderCard(cardData, cardListEl);
 });
