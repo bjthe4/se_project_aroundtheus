@@ -1,5 +1,5 @@
-import Card from "../scripts/components/card.js";
-import FormValidator from "../scripts/components/FormValidator.js";
+import Card from "../components/card.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -199,7 +199,8 @@ cardsAddForm.addEventListener("submit", (e) => {
   const link = cardsAddForm.querySelector("#profile-title-description").value;
   /*const newCard = getCardElement({ name, link });*/
   renderCard({ name, link }, cardListEl);
-  cardsAddForm.reset(addFormValidator);
+  cardsAddForm.reset();
+  addFormValidator.toggleButtonState();
   closeModal(profilAddModal);
 });
 
@@ -212,12 +213,6 @@ previewCloseModal.addEventListener("click", () => closeModal(previewModal));
 profileEditForm.addEventListener("submit", handleEditProfileSubmit);
 
 initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template", (obj) => {
-    modelPreviewImageElement.src = obj.link;
-    modelPreviewImageElement.alt = obj.name;
-    modalPreviewImageCaption.textContent = obj.name;
-    previewPicture();
-  });
   // const cardElement = getCardElement(cardData);
   renderCard(cardData, cardListEl);
 });

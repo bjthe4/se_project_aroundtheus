@@ -27,10 +27,6 @@ export default class Card {
       );
   }
 
-  _renderCard(cardData, container) {
-    container.prepend(cardData);
-  }
-
   _handleLikeIcon() {
     this._cardElement
       .querySelector(".card__like-button")
