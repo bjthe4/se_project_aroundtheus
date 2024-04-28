@@ -1,5 +1,5 @@
-import Card from "./card.js";
-import FormValidator from "./FormValidator.js";
+import Card from "../scripts/components/card.js";
+import FormValidator from "../scripts/components/FormValidator.js";
 
 const initialCards = [
   {
@@ -199,7 +199,7 @@ cardsAddForm.addEventListener("submit", (e) => {
   const link = cardsAddForm.querySelector("#profile-title-description").value;
   /*const newCard = getCardElement({ name, link });*/
   renderCard({ name, link }, cardListEl);
-  cardsAddForm.reset();
+  cardsAddForm.reset(addFormValidator);
   closeModal(profilAddModal);
 });
 
