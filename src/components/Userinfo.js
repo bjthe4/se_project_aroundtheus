@@ -10,6 +10,7 @@ export default class UserInfo {
     };
   }
   setUserInfo(name, about) {
+    console.log(name, about);
     this._name.textContent = name;
     this._about.textContent = about;
   }

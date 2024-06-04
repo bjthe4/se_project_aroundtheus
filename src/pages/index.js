@@ -2,7 +2,7 @@ import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import Section from "../components/Section.js";
-import UserInfo from "../components/UserInfo.js";
+import UserInfo from "../components/Userinfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
 
@@ -83,7 +83,7 @@ popupImage.setEventListeners();
 
 const newCardPopup = new PopupWithForm({
   popupSelector: "#profile-add-modal",
-  handleFormSubmit: cardsAddForm,
+  handleFormSubmit: handleAddCardSubmit,
 });
 newCardPopup.setEventListeners();
 
@@ -135,6 +135,14 @@ function previewPicture() {
   openModal(previewModal);
   // cards.classList.toggle("modal_opened");
 }
+
+function createCard(cardData) {
+  const card = new Card(cardData, "#card-template", openModal);
+  const cardElement = card.getView();
+  return cardElement;
+}
+
+function handleAddCardSubmit() {}
 
 /* Validation */
 
@@ -204,7 +212,7 @@ const handleDeleteCard = (evt) => {
 };
 
 function handleEditProfileSubmit(inputValues) {
-  userInfo.setUserInfo(inputValues.name, inputValues.about);
+  userInfo.setUserInfo(inputValues.title, inputValues.description);
   profileEditPopup.close();
 }
 
