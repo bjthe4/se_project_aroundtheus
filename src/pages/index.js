@@ -1,5 +1,39 @@
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
+import "../pages/index.css";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopUpWithImage from "../components/PopupWithImage.js";
+
+/* elements */
+const modalAdd = document.querySelector(".js-add-modal");
+const modalEdit = document.querySelector(".js-edit-modal");
+const modalePreview = document.querySelector(".js-preview-modal");
+const profileEditButton = document.querySelector("#profile-edit-button");
+const profileEditModal = document.querySelector("#profile-edit-modal");
+const modalPreviewImageElement = document.querySelector(
+  ".modal__preview-image"
+);
+const modalPreviewImageCaption = document.querySelector("#preview-caption");
+
+const profilAddModal = document.querySelector("#profile-add-modal");
+const profileCloseModal = modalEdit.querySelector("#profile-close-modal");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const profileTitleInput = document.querySelector("#profile-title-input");
+const profileDescriptionInput = document.querySelector(
+  "#profile-title-description"
+);
+const profileEditForm = profileEditModal.querySelector(".modal__form");
+const addModalButton = document.querySelector("#profile-add-button");
+const addModalCloseButton = modalAdd.querySelector("#add-close-modal");
+const cardsAddForm = document.querySelector("#modal__form-add");
+const cardListEl = document.querySelector(".cards__list");
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
+const previewModal = document.querySelector("#preview-modal");
+const previewCloseModal = modalePreview.querySelector("#preview-close-modal");
 
 const initialCards = [
   {
@@ -27,7 +61,39 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg ",
   },
 ];
+/* Class Instances */
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      console.log(cardData);
+    },
+  },
+  ".cards__list"
+);
 
+section.renderItems();
+
+const popupImage = new PopUpWithImage({
+  popupSelector: "#preview-modal",
+  modalPreviewImageElement,
+  modalPreviewImageCaption,
+});
+popupImage.setEventListeners();
+
+const newCardPopup = new PopupWithForm({
+  popupSelector: "#profile-add-modal",
+  handleFormSubmit: cardsAddForm,
+});
+newCardPopup.setEventListeners();
+
+const userInfo = new UserInfo(".profile__title", ".profile__description");
+
+const profileEditPopup = new PopupWithForm({
+  popupSelector: "#profile-edit-modal",
+  handleFormSubmit: handleEditProfileSubmit,
+});
+profileEditPopup.setEventListeners();
 const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -40,35 +106,6 @@ const card = new Card(cardData, "#card-template", (obj) => {
 card.getView();
 */
 
-/* elements */
-
-const modalAdd = document.querySelector(".js-add-modal");
-const modalEdit = document.querySelector(".js-edit-modal");
-const modalePreview = document.querySelector(".js-preview-modal");
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const modelPreviewImageElement = document.querySelector(
-  ".modal__preview-image"
-);
-const modalPreviewImageCaption = document.querySelector("#preview-caption");
-
-const profilAddModal = document.querySelector("#profile-add-modal");
-const profileCloseModal = modalEdit.querySelector("#profile-close-modal");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-title-description"
-);
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const addModalButton = document.querySelector("#profile-add-button");
-const addModalCloseButton = modalAdd.querySelector("#add-close-modal");
-const cardsAddForm = document.querySelector("#modal__form-add");
-const cardListEl = document.querySelector(".cards__list");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-const previewModal = document.querySelector("#preview-modal");
-const previewCloseModal = modalePreview.querySelector("#preview-close-modal");
 /* functions */
 
 // function toggleModalWindow(modal) {
@@ -147,12 +184,13 @@ addFormValidator.enableValidation();
 
 function renderCard(cardData, container) {
   const card = new Card(cardData, "#card-template", (obj) => {
-    modelPreviewImageElement.src = obj.link;
-    modelPreviewImageElement.alt = obj.name;
+    modalPreviewImageElement.src = obj.link;
+    modalPreviewImageElement.alt = obj.name;
     modalPreviewImageCaption.textContent = obj.name;
     previewPicture();
   });
-  container.prepend(card.getView());
+  // container.prepend(card.getView());
+  section.addItem(card.getView());
 }
 
 /* event handelers */
@@ -165,10 +203,8 @@ const handleDeleteCard = (evt) => {
   evt.target.closest(".card").remove();
 };
 
-function handleEditProfileSubmit(e) {
-  e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+function handleEditProfileSubmit(inputValues) {
+  userInfo.setUserInfo(inputValues.name, inputValues.about);
   closeModal(profileEditModal);
 }
 
