@@ -205,7 +205,7 @@ const handleDeleteCard = (evt) => {
 
 function handleEditProfileSubmit(inputValues) {
   userInfo.setUserInfo(inputValues.name, inputValues.about);
-  closeModal(profileEditModal);
+  profileEditPopup.close();
 }
 
 function handleEscapeClose(e) {
