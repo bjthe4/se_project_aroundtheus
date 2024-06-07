@@ -251,19 +251,24 @@ addModalButton.addEventListener("click", () =>
 });*/
 
 /*const newCard = getCardElement({ name, link });*/
-profileCloseModal.addEventListener("click", () =>
-  profileEditPopup.close(profileEditModal)
-);
+// profileCloseModal.addEventListener("click", () =>
+//   profileEditPopup.close(profileEditModal)
+// );
 
-addModalCloseButton.addEventListener("click", () =>
-  newCardPopup.close(profilAddModal)
-);
+// addModalCloseButton.addEventListener("click", () =>
+//   newCardPopup.close(profilAddModal)
+// );
 
-previewCloseModal.addEventListener("click", () =>
-  popupImage.close(previewModal)
-);
+// previewCloseModal.addEventListener("click", () =>
+//   popupImage.close(previewModal)
+// );
 
 initialCards.forEach((cardData) => {
   // const cardElement = getCardElement(cardData);
   renderCard(cardData, cardListEl);
+  // const card = new Card(cardData, "#card-template", () => {
+  //   console.log(123);
+  // });
+
+  // const cardElement = card.getView();
 });
