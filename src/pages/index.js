@@ -32,22 +32,90 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/Userinfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
+import Api from "../components/Api.js";
 
+//Api
+
+const api = new Api({
+  authorization: "91a10936-bcf5-444e-a37c-1d53d5865859",
+  "Content-Type": "application/json",
+});
 /* Class Instances */
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const cardElement = createCard(cardData);
+
+let section; // undefined
+
+api
+  .getUserInfo()
+  .then((data) => {
+    console.log(data); ///take this out this was to make sure right thing was being called
+    userInfo.setUserInfo(data);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+api
+  .getInitialCards()
+  .then((result) => {
+    section = new Section(
+      {
+        items: result,
+        renderer: (cardData) => {
+          const cardElement = createCard(cardData);
+          section.addItem(cardElement);
+          //renderCard(cardData);
+        },
+      },
+      ".cards__list"
+    );
+    section.renderItems();
+    console.log(result);
+  })
+  .catch((err) => {
+    console.error(err); // log the error to the console
+  });
+
+function handleEditProfileSubmit(inputValues) {
+  userInfo.setUserInfo(inputValues.title, inputValues.description);
+  profileEditPopup.close();
+  api
+    .updateProfileInfo(name, description)
+    .then((userData) => {
+      console.log(userData);
+      userInfo.setUserInfo(userData);
+      profileEditPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileEditPopup.close(false);
+    });
+}
+function handleAddCardSubmit(inputValues) {
+  /*const newCard = getCardElement({ name, link });*/
+  const cardData = { name: inputValues.title, link: inputValues.description };
+
+  api
+    .createNewCard(cardData)
+    .then((data) => {
+      const cardElement = createCard(data);
       section.addItem(cardElement);
-      //renderCard(cardData);
-    },
-  },
-  ".cards__list"
-);
-
-section.renderItems();
-
+      newCardPopup.reset();
+      newCardPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      addFormValidator.toggleButtonState();
+    });
+}
+/*const cardElement = createCard(cardData);
+  section.addItem(cardElement);
+  newCardPopup.reset();
+  newCardPopup.close();
+  addFormValidator.toggleButtonState();*/
 const popupImage = new PopUpWithImage({
   popupSelector: "#preview-modal",
 });
@@ -123,16 +191,6 @@ function createCard(cardData) {
   return cardElement;
 }
 
-function handleAddCardSubmit(inputValues) {
-  /*const newCard = getCardElement({ name, link });*/
-  const cardData = { name: inputValues.title, link: inputValues.description };
-  const cardElement = createCard(cardData);
-  section.addItem(cardElement);
-  newCardPopup.reset();
-  newCardPopup.close();
-  addFormValidator.toggleButtonState();
-}
-
 /* Validation */
 
 /*function getCardElement(cardData) {
@@ -174,11 +232,6 @@ function handleAddCardSubmit(inputValues) {
 /*const handleDeleteCard = (evt) => {
   evt.target.closest(".card").remove();
 };*/
-
-function handleEditProfileSubmit(inputValues) {
-  userInfo.setUserInfo(inputValues.title, inputValues.description);
-  profileEditPopup.close();
-}
 
 /*function handleEscapeClose(e) {
   const key = e.code;

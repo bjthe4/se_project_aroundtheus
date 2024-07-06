@@ -16,6 +16,15 @@ export default class PopupWithForm extends Popup {
     });
     return inputValues;
   }
+
+  /*setLoading(isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = "Saving...";
+    } else {
+      this._submitButton.textContent = "Save";
+    }
+  }*/
+
   reset() {
     this._popupForm.reset();
   }
