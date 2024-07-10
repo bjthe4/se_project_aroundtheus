@@ -97,7 +97,7 @@ function handleAddCardSubmit(inputValues) {
   const cardData = { name: inputValues.title, link: inputValues.description };
 
   api
-    .createNewCard({ name: cardData.name, link: cardData.link })
+    .createNewCard({ name: cardData.name, link: cardData.description })
     .then((data) => {
       const cardElement = createCard(data);
       section.addItem(cardElement);
@@ -123,6 +123,29 @@ function handleDeleteCard(card) {
       console.error("Error deleting card:", error);
     });
 }
+
+function handleCardLike(card) {
+  api
+    .likeCard(card.getCardId())
+    .then(() => {
+      card.like();
+    })
+    .catch((error) => {
+      console.error("Error deleting card:", error);
+    });
+}
+
+function handleCardDisLike(card) {
+  api
+    .likeCard(card.getCardId())
+    .then(() => {
+      card.dislike();
+    })
+    .catch((error) => {
+      console.error("Error deleting card:", error);
+    });
+}
+
 /*const cardElement = createCard(cardData);
   section.addItem(cardElement);
   newCardPopup.reset();
@@ -203,7 +226,9 @@ function createCard(cardData) {
     cardData,
     "#card-template",
     handleImageClick,
-    handleDeleteCard
+    handleDeleteCard,
+    handleCardLike,
+    handleCardDisLike
   );
   const cardElement = card.getView();
   return cardElement;
