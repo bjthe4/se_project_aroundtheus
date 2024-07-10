@@ -47,7 +47,25 @@ export default class Api {
   }
   deleteCard(cardId) {
     return fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/${cardId}",
+      `https://around-api.en.tripleten-services.com/v1/cards/${cardId}`,
+      {
+        method: "DELETE",
+        headers: this._headers,
+      }
+    ).then(this._checkResponse);
+  }
+  likeCard(cardId) {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${cardId}/likes`,
+      {
+        method: "PUT",
+        headers: this._headers,
+      }
+    ).then(this._checkResponse);
+  }
+  dislikeCard(cardId) {
+    return fetch(
+      `https://around-api.en.tripleten-services.com/v1/cards/${cardId}/likes`,
       {
         method: "DELETE",
         headers: this._headers,

@@ -48,7 +48,7 @@ api
   .getUserInfo()
   .then((data) => {
     console.log(data); ///take this out this was to make sure right thing was being called
-    userInfo.setUserInfo(data);
+    userInfo.setUserInfo(data.name, data.about);
   })
   .catch((err) => {
     console.error(err);
@@ -112,16 +112,17 @@ function handleAddCardSubmit(inputValues) {
     });
 }
 
-api
-  .deleteCard()
-  .then(() => {
-    console.log("Card deleted successfully");
-    card.handleDeleteCard();
-  })
-  .catch((error) => {
-    console.error("Error deleting card:", error);
-  });
-
+function handleDeleteCard(card) {
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      console.log("Card deleted successfully");
+      card.remove();
+    })
+    .catch((error) => {
+      console.error("Error deleting card:", error);
+    });
+}
 /*const cardElement = createCard(cardData);
   section.addItem(cardElement);
   newCardPopup.reset();
@@ -198,7 +199,12 @@ function handleImageClick(data) {
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleImageClick,
+    handleDeleteCard
+  );
   const cardElement = card.getView();
   return cardElement;
 }
