@@ -100,9 +100,9 @@ function handleAddCardSubmit(inputValues) {
     .createNewCard(cardData)
     .then((data) => {
       const cardElement = createCard(data);
-      section.addItem(cardElement);
-      newCardPopup.reset();
+      cardSection.addItem(cardElement);
       newCardPopup.close();
+      newCardPopup.reset();
     })
     .catch((err) => {
       console.error(err);
@@ -111,11 +111,23 @@ function handleAddCardSubmit(inputValues) {
       addFormValidator.toggleButtonState();
     });
 }
+
+api
+  .deleteCard()
+  .then(() => {
+    console.log("Card deleted successfully");
+    card.handleDeleteCard();
+  })
+  .catch((error) => {
+    console.error("Error deleting card:", error);
+  });
+
 /*const cardElement = createCard(cardData);
   section.addItem(cardElement);
   newCardPopup.reset();
   newCardPopup.close();
   addFormValidator.toggleButtonState();*/
+
 const popupImage = new PopUpWithImage({
   popupSelector: "#preview-modal",
 });

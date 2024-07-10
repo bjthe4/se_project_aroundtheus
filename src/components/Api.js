@@ -15,12 +15,7 @@ export default class Api {
     return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   getUserInfo() {
@@ -49,5 +44,14 @@ export default class Api {
         link,
       }),
     }).then(this._checkResponse);
+  }
+  deleteCard(cardId) {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/cards/${cardId}",
+      {
+        method: "DELETE",
+        headers: this._headers,
+      }
+    ).then(this._checkResponse);
   }
 }
