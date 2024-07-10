@@ -97,10 +97,10 @@ function handleAddCardSubmit(inputValues) {
   const cardData = { name: inputValues.title, link: inputValues.description };
 
   api
-    .createNewCard(cardData)
+    .createNewCard({ name: cardData.name, link: cardData.link })
     .then((data) => {
       const cardElement = createCard(data);
-      cardSection.addItem(cardElement);
+      section.addItem(cardElement);
       newCardPopup.close();
       newCardPopup.reset();
     })
