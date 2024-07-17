@@ -1,11 +1,13 @@
 export default class Card {
   constructor(
     { name, link, _id },
+    data,
     cardSelector,
     handleImageClick,
     handleDeleteCard,
-    handleCardLike,
-    handleCardDislike
+    handleLikeButton
+    //handleCardLike,
+    //handleCardDislike
   ) {
     this._name = name;
     this._link = link;
@@ -13,21 +15,22 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCard = handleDeleteCard;
-    //this._handleCardLike = handleCardLike;
+    this._handleLikeButton = handleLikeButton;
     //this._handleCardDislike = handleCardDislike;
-    //this._isLiked = data_isLiked;
+    this.isLiked = data.isLiked;
   }
   getCardId() {
     return this._id;
   }
 
   _setEventListeners() {
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
     // ".card__like-button"
-    this._cardElement
+    /*this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
         this.like();
-      });
+      });*/
 
     //".card__trash-button"
     this._cardElement
@@ -40,20 +43,39 @@ export default class Card {
       .addEventListener("click", () =>
         this._handleImageClick({ name: this._name, link: this._link })
       );
+    this._likeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (e.target === this._likeButton) {
+        this._handleLikeButton(this);
+      }
+    });
   }
 
-  like() {
+  /*like() {
     this._cardElement
       .querySelector(".card__like-button")
       .classList.toggle("card__like-button_active");
     //this._isLiked = true;
-  }
+  }*/
 
-  dislike() {
+  /*dislike() {
     this._cardElement
       .querySelector(".card__like-button")
       .classList.remove("card__like-button_active");
     //this._isLiked = false;
+  }*/
+
+  updateIsLiked(isLiked) {
+    this.isLiked = isLiked;
+    this.renderLikes();
+  }
+
+  renderLikes() {
+    if (this.isLiked) {
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
   }
 
   remove() {

@@ -24,6 +24,7 @@ export default class Api {
       headers: this._headers,
     }).then(this._checkResponse);
   }
+
   updateProfileInfo(name, about) {
     return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
       method: "PATCH",
@@ -60,6 +61,7 @@ export default class Api {
       {
         method: "PUT",
         headers: this._headers,
+        body: JSON.stringify({ isLiked: true }),
       }
     ).then(this._checkResponse);
   }
@@ -69,6 +71,19 @@ export default class Api {
       {
         method: "DELETE",
         headers: this._headers,
+        body: JSON.stringify({ isLiked: false }),
+      }
+    ).then(this._checkResponse);
+  }
+  updateAvatar(newAvatarUrl) {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/users/me/avatar",
+      {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: newAvatarUrl,
+        }),
       }
     ).then(this._checkResponse);
   }

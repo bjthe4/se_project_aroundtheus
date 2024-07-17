@@ -25,7 +25,7 @@ import {
   editFormElemenet,
   addFormElemenet,
 } from "../utils/constants.js";
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import Section from "../components/Section.js";
@@ -97,7 +97,7 @@ function handleAddCardSubmit(inputValues) {
   const cardData = { name: inputValues.title, link: inputValues.description };
 
   api
-    .createNewCard({ name: cardData.name, link: cardData.description })
+    .createNewCard({ name: cardData.name, link: cardData.link })
     .then((data) => {
       const cardElement = createCard(data);
       section.addItem(cardElement);
@@ -125,17 +125,24 @@ function handleDeleteCard(card) {
 }
 
 function handleCardLike(card) {
-  api
-    .likeCard(card.getCardId())
-    .then(() => {
-      card.like();
-    })
-    .catch((error) => {
-      console.error("Error deleting card:", error);
-    });
+  if (card.isLiked) {
+    api
+      .dislikeCard(card.getCardId)
+      .then(() => {
+        card.updateIsLiked();
+      })
+      .catch((error) => console.error("Error deleting card:", error));
+  } else {
+    api
+      .likeCard(card.getCardId)
+      .then(() => {
+        card.updateIsLiked(true);
+      })
+      .catch((error) => console.error("Error deleting card:", error));
+  }
 }
 
-function handleCardDisLike(card) {
+/*function handleCardDisLike(card) {
   api
     .likeCard(card.getCardId())
     .then(() => {
@@ -144,7 +151,7 @@ function handleCardDisLike(card) {
     .catch((error) => {
       console.error("Error deleting card:", error);
     });
-}
+}*/
 
 /*const cardElement = createCard(cardData);
   section.addItem(cardElement);
@@ -227,8 +234,8 @@ function createCard(cardData) {
     "#card-template",
     handleImageClick,
     handleDeleteCard,
-    handleCardLike,
-    handleCardDisLike
+    handleCardLike
+    /*handleCardDisLike*/
   );
   const cardElement = card.getView();
   return cardElement;
