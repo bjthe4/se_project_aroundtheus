@@ -49,6 +49,7 @@ api
   .then((data) => {
     console.log(data); ///take this out this was to make sure right thing was being called
     userInfo.setUserInfo(data.name, data.about);
+    userInfo.setAvatar(data.avatar);
   })
   .catch((err) => {
     console.error(err);
@@ -127,14 +128,14 @@ function handleDeleteCard(card) {
 function handleCardLike(card) {
   if (card.isLiked) {
     api
-      .dislikeCard(card.getCardId)
+      .dislikeCard(card._id)
       .then(() => {
         card.updateIsLiked();
       })
       .catch((error) => console.error("Error deleting card:", error));
   } else {
     api
-      .likeCard(card.getCardId)
+      .likeCard(card._id)
       .then(() => {
         card.updateIsLiked(true);
       })
@@ -144,20 +145,20 @@ function handleCardLike(card) {
 
 /*function handleCardDisLike(card) {
   api
-    .likeCard(card.getCardId())
-    .then(() => {
-      card.dislike();
-    })
-    .catch((error) => {
-      console.error("Error deleting card:", error);
-    });
+  .likeCard(card.getCardId())
+  .then(() => {
+    card.dislike();
+  })
+  .catch((error) => {
+    console.error("Error deleting card:", error);
+  });
 }*/
 
 /*const cardElement = createCard(cardData);
-  section.addItem(cardElement);
-  newCardPopup.reset();
-  newCardPopup.close();
-  addFormValidator.toggleButtonState();*/
+section.addItem(cardElement);
+newCardPopup.reset();
+newCardPopup.close();
+addFormValidator.toggleButtonState();*/
 
 const popupImage = new PopUpWithImage({
   popupSelector: "#preview-modal",
@@ -177,6 +178,37 @@ const profileEditPopup = new PopupWithForm({
   handleFormSubmit: handleEditProfileSubmit,
 });
 
+const avatarEditModal = new PopupWithForm(
+  "#edit-avatar-modal",
+  handleAvatarSubmit
+);
+
+const profileAvatar = document.querySelector(".profile__image-container");
+
+profileAvatar.addEventListener("click", () => {
+  avatarEditModal.open();
+});
+
+avatarEditModal.setEventListeners();
+
+function handleAvatarSubmit({ link }) {
+  avatarEditModal.renderLoading(true);
+
+  api
+    .updateAvatar(link)
+    .then(() => {
+      userInfo.setAvatar(link);
+      avatarEditModal.close();
+    })
+    .catch((err) => {
+      console.error("Error updating avatar:", err);
+    })
+    .finally(() => {
+      avatarEditModal.renderLoading(false);
+    });
+}
+
+//FORM VALIDATION
 const editFormValidator = new FormValidator(
   validationSettings,
   editFormElemenet

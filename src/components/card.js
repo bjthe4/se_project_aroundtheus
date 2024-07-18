@@ -1,11 +1,11 @@
 export default class Card {
   constructor(
     { name, link, _id },
-    data,
     cardSelector,
     handleImageClick,
     handleDeleteCard,
-    handleLikeButton
+    handleLikeButton,
+    isLiked
     //handleCardLike,
     //handleCardDislike
   ) {
@@ -17,7 +17,7 @@ export default class Card {
     this._handleDeleteCard = handleDeleteCard;
     this._handleLikeButton = handleLikeButton;
     //this._handleCardDislike = handleCardDislike;
-    this.isLiked = data.isLiked;
+    this.isLiked = isLiked;
   }
   getCardId() {
     return this._id;
