@@ -18,10 +18,16 @@
         <section class="profile">
           <div class="profile__image-container">
           <img
-            src="<%=require('./images/Avatar.png')%>"
+            src="images/solid black.jpg"
             alt="Avatar"
             class="profile__image"
           />
+          <div class = "profile__image-overlay">
+            <img 
+            src="images/profile pencil.svg"
+            alt="pencil"
+            class="profile__image-pencil"
+            />
           </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
@@ -180,6 +186,7 @@
         type="button"
         ></button>
         <p class="modal__heading">Change profile picture</p>
+        <form class="modal__form" id="edit-avatar-modal-form">
         <label class="modal__label">
           <input
               type="url"

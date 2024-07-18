@@ -33,6 +33,7 @@ import UserInfo from "../components/Userinfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopUpWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
+import PopupConfirmDelete from "../components/PopupConfirmDelete.js";
 
 //Api
 
@@ -171,23 +172,27 @@ const newCardPopup = new PopupWithForm({
 });
 newCardPopup.setEventListeners();
 
-const userInfo = new UserInfo(".profile__title", ".profile__description");
+const userInfo = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
 
 const profileEditPopup = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: handleEditProfileSubmit,
 });
 
-const avatarEditModal = new PopupWithForm(
-  "#edit-avatar-modal",
-  handleAvatarSubmit
-);
+const avatarEditModal = new PopupWithForm({
+  popupSelector: "#edit-avatar-modal",
+  handleFormSubmit: handleAvatarSubmit,
+});
+
+//Profile creation and editing
 
 const profileAvatar = document.querySelector(".profile__image-container");
 
-profileAvatar.addEventListener("click", () => {
-  avatarEditModal.open();
-});
+profileAvatar.addEventListener("click", () => avatarEditModal.open());
 
 avatarEditModal.setEventListeners();
 
