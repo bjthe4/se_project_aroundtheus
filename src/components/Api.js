@@ -75,14 +75,14 @@ export default class Api {
       }
     ).then(this._checkResponse);
   }
-  updateAvatar(newAvatarUrl) {
+  updateAvatar(avatar) {
     return fetch(
       "https://around-api.en.tripleten-services.com/v1/users/me/avatar",
       {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
-          avatar: newAvatarUrl,
+          avatar,
         }),
       }
     ).then(this._checkResponse);

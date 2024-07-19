@@ -24,6 +24,7 @@ import {
   previewCloseModal,
   editFormElemenet,
   addFormElemenet,
+  editAvatarForm,
 } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -78,25 +79,25 @@ api
   });
 
 function handleEditProfileSubmit(inputValues) {
-  userInfo.setUserInfo(inputValues.title, inputValues.description);
-  profileEditPopup.close();
+  /*userInfo.setUserInfo(inputValues.name, inputValues.about);*/
+  profileEditPopup.renderLoading(true);
   api
-    .updateProfileInfo(name, description)
-    .then((userData) => {
-      console.log(userData);
-      userInfo.setUserInfo(userData);
+    .updateProfileInfo(inputValues.name, inputValues.about)
+    .then((data) => {
+      userInfo.setUserInfo(data.name, data.about);
       profileEditPopup.close();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      profileEditPopup.close(false);
+      profileEditPopup.renderLoading(false);
     });
 }
 function handleAddCardSubmit(inputValues) {
   /*const newCard = getCardElement({ name, link });*/
   const cardData = { name: inputValues.title, link: inputValues.description };
+  newCardPopup.renderLoading(true);
 
   api
     .createNewCard({ name: cardData.name, link: cardData.link })
@@ -104,26 +105,34 @@ function handleAddCardSubmit(inputValues) {
       const cardElement = createCard(data);
       section.addItem(cardElement);
       newCardPopup.close();
+      addFormValidator.toggleButtonState();
       newCardPopup.reset();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      addFormValidator.toggleButtonState();
+      newCardPopup.renderLoading(false);
+      /*addFormValidator.toggleButtonState();*/
     });
 }
 
+const deleteCardModal = new PopupConfirmDelete("#delete-card-modal");
+deleteCardModal.setEventListeners();
+
 function handleDeleteCard(card) {
-  api
-    .deleteCard(card._id)
-    .then(() => {
-      console.log("Card deleted successfully");
-      card.remove();
-    })
-    .catch((error) => {
-      console.error("Error deleting card:", error);
-    });
+  deleteCardModal.open();
+  deleteCardModal.setConfirmDelete(() => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        deleteCardModal.close();
+        card.remove();
+      })
+      .catch((error) => {
+        console.error("Error deleting card:", error);
+      });
+  });
 }
 
 function handleCardLike(card) {
@@ -220,6 +229,12 @@ const editFormValidator = new FormValidator(
 );
 const addFormValidator = new FormValidator(validationSettings, addFormElemenet);
 
+const editAvatarFormValidator = new FormValidator(
+  validationSettings,
+  editAvatarForm
+);
+
+editAvatarFormValidator.enableValidation();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 profileEditPopup.setEventListeners();

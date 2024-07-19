@@ -12,21 +12,22 @@
 
 .profile__image-overlay {
   position: relative;
+  visibility: hidden;
   height: 26px;
   width: 26px;
   left: 45px;
   bottom: 50px;
 }
 
-.profile__image-pencil {
+/*.profile__image-pencil {
   left: 0;
   width: 100%;
   height: 100%;
   background: none;
   border: none;
-  cursor: pointer; /* recordar cursor:pointer siempre que sea un boton o algun elemento de interaccion*/
+  cursor: pointer;
   transition: opacity 0.3s;
-}
+}*/
 
 .profile__info {
   display: grid;

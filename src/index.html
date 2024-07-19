@@ -18,16 +18,17 @@
         <section class="profile">
           <div class="profile__image-container">
           <img
-            src="images/solid black.jpg"
+            src="<%=require('./images/solid black.jpg')%>"
             alt="Avatar"
             class="profile__image"
           />
-          <div class = "profile__image-overlay">
+           <div class = "profile__image-overlay">
             <img 
-            src="images/profile pencil.svg"
+            src="<%=require('./images/profile pencil.svg')%>"
             alt="pencil"
-            class="profile__image-pencil"
-            />
+            class="profile__image-pencil" 
+            /> 
+          </div>
           </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
@@ -67,7 +68,7 @@
           <input
             type="text"
             class="modal__input"
-            name="title"
+            name="name"
             id="profile-title-input"
             placeholder="Name"
             minlength="2"
@@ -80,7 +81,7 @@
             <input
               type="text"
               class="modal__input"
-              name="description"
+              name="about"
               id="profile-title-description"
               placeholder="About"
               minlength="2"
@@ -169,8 +170,8 @@
           type="button"
         ></button>
           <h2 class="modal__heading">Are you sure?</h2>
+          <button class="modal__button" id ="modal-button-delete" type="submit">Yes</button>
           <form class="modal__form" id="delete-card-form"></form>
-          <button class="modal__button" type="submit">Yes</button>
         </form>
       </div>
     </div>
@@ -187,7 +188,7 @@
         ></button>
         <p class="modal__heading">Change profile picture</p>
         <form class="modal__form" id="edit-avatar-modal-form">
-        <label class="modal__label">
+        <label class="modal__label" id = "modal-label-avatar">
           <input
               type="url"
               class="modal__input modal__input_type_link"
@@ -197,7 +198,8 @@
               required
             />
            <span class="modal__error" id="avatar-image-link-error"></span>
-           <button class="modal__button" type="submit" disabled>Save</button>
+          </label>
+           <button class="modal__button" id="modal-button-avatar" type="submit" disabled>Save</button>
           </form>
         </div>
       </div>

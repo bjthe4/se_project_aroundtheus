@@ -72,6 +72,7 @@ export const previewCloseModal = modalePreview.querySelector(
 );
 export const editFormElemenet = modalEdit.querySelector(".modal__form");
 export const addFormElemenet = modalAdd.querySelector(".modal__form");
+export const editAvatarForm = document.querySelector("#edit-avatar-modal-form");
 
 /*export const myVariables = {
   modalAdd: document.querySelector(".js-add-modal"),
