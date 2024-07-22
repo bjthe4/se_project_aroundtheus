@@ -17,18 +17,18 @@
       <main class="content">
         <section class="profile">
           <div class="profile__image-container">
-          <img
-            src="<%=require('./images/solid black.jpg')%>"
-            alt="Avatar"
-            class="profile__image"
-          />
-           <div class = "profile__image-overlay">
-            <img 
-            src="<%=require('./images/profile pencil.svg')%>"
-            alt="pencil"
-            class="profile__image-pencil" 
-            /> 
-          </div>
+            <img
+              src="<%=require('./images/solid black.jpg')%>"
+              alt="Avatar"
+              class="profile__image"
+            />
+            <div class="profile__image-overlay">
+              <img
+                src="<%=require('./images/profile pencil.svg')%>"
+                alt="pencil"
+                class="profile__image-pencil"
+              />
+            </div>
           </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
@@ -169,9 +169,11 @@
           id="delete-card-close-button"
           type="button"
         ></button>
-          <h2 class="modal__heading">Are you sure?</h2>
-          <button class="modal__button" id ="modal-button-delete" type="submit">Yes</button>
-          <form class="modal__form" id="delete-card-form"></form>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" id="delete-card-form">
+          <button class="modal__button" id="modal-button-delete" type="submit">
+            Yes
+          </button>
         </form>
       </div>
     </div>
@@ -182,14 +184,14 @@
     <div class="modal" id="edit-avatar-modal">
       <div class="modal__container">
         <button
-        id="edit-avatar-close-button"
-        class="modal__close"
-        type="button"
+          id="edit-avatar-close-button"
+          class="modal__close"
+          type="button"
         ></button>
         <p class="modal__heading">Change profile picture</p>
         <form class="modal__form" id="edit-avatar-modal-form">
-        <label class="modal__label" id = "modal-label-avatar">
-          <input
+          <label class="modal__label" id="modal-label-avatar">
+            <input
               type="url"
               class="modal__input modal__input_type_link"
               name="link"
@@ -197,12 +199,19 @@
               placeholder="Image link"
               required
             />
-           <span class="modal__error" id="avatar-image-link-error"></span>
+            <span class="modal__error" id="avatar-image-link-error"></span>
           </label>
-           <button class="modal__button" id="modal-button-avatar" type="submit" disabled>Save</button>
-          </form>
-        </div>
+          <button
+            class="modal__button"
+            id="modal-button-avatar"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
+        </form>
       </div>
+    </div>
     <!--                    -->
     <!-- Card Template      -->
     <!--                    -->
