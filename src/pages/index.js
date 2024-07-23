@@ -38,10 +38,13 @@ import PopupConfirmDelete from "../components/PopupConfirmDelete.js";
 
 //Api
 
-const api = new Api({
-  authorization: "91a10936-bcf5-444e-a37c-1d53d5865859",
-  "Content-Type": "application/json",
-});
+const api = new Api(
+  {
+    authorization: "91a10936-bcf5-444e-a37c-1d53d5865859",
+    "Content-Type": "application/json",
+  },
+  "https://around-api.en.tripleten-services.com/v1"
+);
 /* Class Instances */
 
 let section; // undefined
@@ -85,6 +88,7 @@ function handleEditProfileSubmit(inputValues) {
     .updateProfileInfo(inputValues.name, inputValues.about)
     .then((data) => {
       userInfo.setUserInfo(data.name, data.about);
+      editFormValidator.disableButton();
       profileEditPopup.close();
     })
     .catch((err) => {
@@ -105,7 +109,7 @@ function handleAddCardSubmit(inputValues) {
       const cardElement = createCard(data);
       section.addItem(cardElement);
       newCardPopup.close();
-      addFormValidator.toggleButtonState();
+      addFormValidator.disableButton();
       newCardPopup.reset();
     })
     .catch((err) => {
@@ -212,6 +216,7 @@ function handleAvatarSubmit({ link }) {
     .updateAvatar(link)
     .then(() => {
       userInfo.setAvatar(link);
+      /*editAvatarFormValidator.disableButton();*/
       avatarEditModal.close();
     })
     .catch((err) => {

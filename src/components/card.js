@@ -1,11 +1,10 @@
 export default class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked },
     cardSelector,
     handleImageClick,
     handleDeleteCard,
-    handleLikeButton,
-    isLiked
+    handleLikeButton
     //handleCardLike,
     //handleCardDislike
   ) {
@@ -94,6 +93,7 @@ export default class Card {
     this._cardElement.querySelector(".card__image").src = this._link;
     this._cardElement.querySelector(".card__image").alt = this._link;
     this._cardElement.querySelector(".card__title").textContent = this._name;
+    this.renderLikes();
 
     // return the card
 

@@ -94,7 +94,13 @@
             >
             </span
           ></label>
-          <button type="submit" class="modal__button" disabled>Save</button>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -188,7 +194,9 @@
           class="modal__close"
           type="button"
         ></button>
-        <p class="modal__heading">Change profile picture</p>
+        <p class="modal__heading" id="modal-heading-avatar">
+          Change profile picture
+        </p>
         <form class="modal__form" id="edit-avatar-modal-form">
           <label class="modal__label" id="modal-label-avatar">
             <input
@@ -202,7 +210,7 @@
             <span class="modal__error" id="avatar-image-link-error"></span>
           </label>
           <button
-            class="modal__button"
+            class="modal__button modal__button_disabled"
             id="modal-button-avatar"
             type="submit"
             disabled
@@ -212,6 +220,7 @@
         </form>
       </div>
     </div>
+
     <!--                    -->
     <!-- Card Template      -->
     <!--                    -->

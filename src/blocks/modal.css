@@ -138,7 +138,6 @@
   border: 1px solid #ccc;
   color: #ccc;
 }
-
 .modal__button:hover {
   opacity: 0.7;
 }
@@ -159,6 +158,10 @@
 
 .modal__input_type_error {
   border-bottom: 1px solid rgba(255, 0, 0, 0.825);
+}
+
+#avatar-image-link-error {
+  top: 55px;
 }
 @media screen and (max-width: 636px) {
   .modal__container {
@@ -185,5 +188,31 @@
     padding: 14px 100px 14px 100px;
     margin-top: 45px;
     font-size: 14px;
+  }
+
+  .modal__label {
+    position: relative;
+    display: block;
+    /* padding: 40px 0;*/
+  }
+
+  #modal-label-avatar {
+    padding-top: 0px;
+  }
+
+  #modal-heading-avatar {
+    margin: 0px 0px 50px;
+  }
+  .modal__error {
+    top: 160px;
+  }
+
+  #avatar-image-link-error {
+    top: 40px;
+  }
+
+  #modal-button-avatar {
+    display: block;
+    width: 250px;
   }
 }
