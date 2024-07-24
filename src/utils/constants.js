@@ -56,6 +56,8 @@ export const profileTitleInput = document.querySelector("#profile-title-input");
 export const profileDescriptionInput = document.querySelector(
   "#profile-title-description"
 );
+
+export const profileImageInput = document.querySelector(".profile__image");
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
 
 export const addModalButton = document.querySelector("#profile-add-button");
@@ -70,6 +72,7 @@ export const previewCloseModal = modalePreview.querySelector(
 );
 export const editFormElemenet = modalEdit.querySelector(".modal__form");
 export const addFormElemenet = modalAdd.querySelector(".modal__form");
+export const editAvatarForm = document.querySelector("#edit-avatar-modal-form");
 
 /*export const myVariables = {
   modalAdd: document.querySelector(".js-add-modal"),
