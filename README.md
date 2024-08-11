@@ -25,5 +25,6 @@ This project is made so all the elements are displayed correctly on popular scre
 
 
 **Project link**
-https://bjthe4.github.io/se_project_aroundtheus/
+
+* https://bjthe4.github.io/se_project_aroundtheus/
 
